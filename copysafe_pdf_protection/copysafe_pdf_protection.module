@@ -1,0 +1,767 @@
+<?php
+
+/**
+ * @file
+ * copysafe_pdf_protection module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function copysafe_pdf_protection_menu() {
+  $items = array();
+
+  $items['copysafe_pdf_protection/%ctools_js/copysafe_pdf_protection/form/%'] = array(
+    'title' => 'AJAX modal dialog',
+    'page callback' => 'copysafe_pdf_protection_popup',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['copysafe_pdf_protection/%ctools_js/class/%'] = array(
+    'title' => 'Options',
+    'description' => 'Ctools call back',
+    'page callback' => 'copysafe_pdf_protection_class',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer site configuration'),
+  );
+  $items['admin/config/copysafe'] = array(
+    'title' => 'CopySafe',
+    'page callback' => 'system_admin_menu_block_page',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'access arguments' => array('administer site configuration'),
+  );
+  $items['admin/config/copysafe/copysafe_pdf_protection'] = array(
+    'title' => 'CopySafe PDF',
+    'description' => 'Copy protect PDF on web pages. Safe from all copy and save including Print Screen and screen capture.',
+    'page callback' => 'copysafe_pdf_protection_config',
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer site configuration'),
+  );
+  $items['admin/config/copysafe/copysafe_pdf_protection/list'] = array(
+    'title' => 'CopySafe PDF Files',
+    'description' => 'Copy protect PDF on web pages. Safe from all copy and save including Print Screen and screen capture.',
+    'page callback' => 'copysafe_pdf_protection_config',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'access arguments' => array('administer site configuration'),
+    // 'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/copysafe/copysafe_pdf_protection/settings'] = array(
+    'title' => 'CopySafe PDF Settings',
+    'page callback' => 'copysafe_pdf_protection_settings',
+    'access callback' => TRUE,
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['copysafe_pdf_protection/file_delete/%'] = array(
+    'description' => 'description',
+    'page callback' => 'copysafe_pdf_protection_delete',
+    'page arguments' => array(1),
+    'access arguments' => array('administer site configuration'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add 'Embed CopySafe PDF' option to the textarea.
+ *
+ * @see user_admin_settings()
+ */
+function copysafe_pdf_protection_element_info_alter(&$types) {
+  $types['textarea']['#post_render'][] = 'copysafe_pdf_protection_post_render';
+}
+
+/**
+ * Function() to render 'Embed CopySafe PDF image' option in textarea.
+ */
+function copysafe_pdf_protection_post_render($content, $element) {
+  if (isset($element['#entity_type']) && isset($element['#bundle'])) {
+    if ($element['#entity_type'] == "node") {
+      $content = copysafe_pdf_protection_embed($content, $element);
+    }
+  }
+  return $content;
+}
+
+/**
+ * Function() for the popup containing CopySafe File Upload and Settings.
+ */
+function copysafe_pdf_protection_embed($content, $element) {
+  $name = $element['#id'];
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+
+  $custom_style = array(
+    'my-copysafe_pdf_protection-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 900,
+        'height' => 600,
+      ),
+      'animation' => 'fadeIn',
+    ),
+  );
+  drupal_add_js($custom_style, 'setting');
+  drupal_add_css(drupal_get_path('module', 'copysafe_pdf_protection') . '/copysafe_pdf_protection.css');
+  $output = ctools_modal_text_button(t('Embed CopySafePDF'), 'copysafe_pdf_protection/nojs/copysafe_pdf_protection/form/' . $name,
+            t('Pop me up'), 'qembedlinkpdf qembed_' . $name, 'ctools-modal-my-copysafe_pdf_protection-style');
+  $output .= '<div id="modal-message">&nbsp</div>';
+  ctools_include('plugins');
+  $content = $output . $content;
+  return $content;
+}
+
+/**
+ * Callback for hook_menu().
+ */
+function copysafe_pdf_protection_popup($js = NULL) {
+  if (!$js) {
+    return drupal_get_form('copysafe_pdf_protection_form');
+  }
+  ctools_include('modal');
+  ctools_include('ajax');
+  $form_state = array(
+    'title' => t('Add new encrypted class file'),
+    'ajax' => TRUE,
+  );
+  $output = ctools_modal_form_wrapper('copysafe_pdf_protection_form', $form_state);
+  if (!empty($form_state['executed'])) {
+    $fid = $form_state['complete form']['custom_field_name']['imagepdf']['#file'];
+    $output = array();
+    $form_state = array(
+      'title' => 'File embed options for ' . $fid->filename,
+      'ajax' => TRUE,
+      'filename' => $fid->filename,
+    );
+    $output = ctools_modal_form_wrapper('copysafe_pdf_protection_class_form', $form_state);
+    if (!empty($form_state['executed'])) {
+      $output = array();
+      $output[] = ctools_modal_command_dismiss(t('Success!'));
+    }
+  }
+  print ajax_render($output);
+  exit;
+}
+
+/**
+ * Implements hook_form().
+ *
+ * File Upload Field and table listing files.
+ */
+function copysafe_pdf_protection_form($form, $form_state) {
+  drupal_add_js(drupal_get_path('module', 'copysafe_pdf_protection') . '/copysafe_pdf_protection_back.js');
+  $settings['copysafe_pdf_protection']['buttons']["qembedpdf"] = "qembedpdf";
+  $settings['copysafe_pdf_protection']['values']["bgwidth"] = variable_get('copysafe_pdf_protection_width', '600');
+  $settings['copysafe_pdf_protection']['values']["bgheight"] = variable_get('copysafe_pdf_protection_height', '600');
+  $settings['copysafe_pdf_protection']['values']["prints_allowed"] = variable_get('copysafe_pdf_protection_printsallowed', 0);
+  $settings['copysafe_pdf_protection']['values']["print_anywhere"] = variable_get('copysafe_pdf_protection_printsanywhere', 0);
+  $settings['copysafe_pdf_protection']['values']["allow_capture"] = variable_get('copysafe_pdf_protection_allowcapture', 0);
+  $settings['copysafe_pdf_protection']['values']["allow_remote"] = variable_get('copysafe_pdf_protection_allowremote', 0);
+  $settings['copysafe_pdf_protection']['values']["background"] = variable_get('copysafe_pdf_protection_bgd', 'CCCCCC');
+  $settings['copysafe_pdf_protection']['values']["language"] = variable_get('copysafe_pdf_protection_language', '000c');
+  drupal_add_js($settings, array('type' => 'setting'));
+  drupal_add_js(array('copysafe_pdf_protection' => array('clicked' => arg(4))), 'setting');
+
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+  ctools_include('plugins');
+  $custom_style = array(
+    'my-copysafe_pdf_protection-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 900,
+        'height' => 600,
+      ),
+      'animation' => 'fadeIn',
+    ),
+  );
+  drupal_add_js($custom_style, 'setting');
+
+  $form['custom_field_name']['imagepdf'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('File Upload'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array(0 => 'class'),
+      // 'file_validate_size' => array(600),
+      // 'file_validate_image_resolution' => array('64x64', '10x10')
+    ),
+    '#upload_location' => 'public://' . variable_get('copysafe_pdf_protection_uploadfolder', 'upload_folder/copysafe_pdf_protection') . '/',
+    '#description' => t("Upload a '.class' file."),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#attributes' => array('class' => array('copysafe_pdf_protection_file_save')),
+    '#submit' => array('copysafe_pdf_protection_form_submit'),
+  );
+
+  $result = db_query("SELECT * FROM {file_managed}");
+
+  $header = array();
+  $header[] = array('data' => 'File', 'field' => 'filename');
+  $header[] = array('data' => 'Size', 'field' => 'filesize');
+  $header[] = array('data' => 'Date', 'field' => 'timestamp');
+  $header[] = array('data' => 'Insert');
+
+  $data = array();
+  foreach ($result as $record) {
+    if (strpos($record->uri, 'public://upload_folder/copysafe_pdf_protection') !== FALSE) {
+      $size = round($record->filesize / 1024, 2) . "KB";
+      $date = date('d-m-Y H:i:s', $record->timestamp);
+      $insert = ctools_modal_text_button(t('Embed options'), 'copysafe_pdf_protection/nojs/class/' . $record->fid,
+                  t('Pop me up'), 'ctools-modal-my-copysafe_pdf_protection-style');
+      $insert .= '<div id="modal-message">&nbsp</div>';
+      $name = '<a href="#" class="qembedpdf">' . $record->filename . '</a>';
+      $data[$record->fid] = array($name,$size,$date,$insert);
+    }
+  }
+  $html = theme('table', array('header' => $header, 'rows' => $data));
+
+  $form['htmlpdf'] = array(
+    '#type' => 'markup',
+    '#markup' => $html,
+  );
+  return $form;
+}
+
+/**
+ * Submit validator for copysafe_pdf_protection_form().
+ */
+function copysafe_pdf_protection_form_submit(&$form, $form_state) {
+  $fid = $form_state['values']['imagepdf'];
+  $file = file_load($fid);
+  file_create_url($file->uri);
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+}
+
+/**
+ * Callback for hook_menu().
+ */
+function copysafe_pdf_protection_class($js = NULL) {
+  $fid = arg(3);
+  $file = file_load($fid);
+  $filename = $file->filename;
+
+  if (!$js) {
+    return drupal_get_form('copysafe_pdf_protection_class_form');
+  }
+  ctools_include('modal');
+  ctools_include('ajax');
+  $form_state = array(
+    'title' => 'File embed options for ' . $filename,
+    'ajax' => TRUE,
+    'filename' => $file->filename,
+  );
+  $output = ctools_modal_form_wrapper('copysafe_pdf_protection_class_form', $form_state);
+  if (!empty($form_state['executed'])) {
+    $output = array();
+    $output[] = ctools_modal_command_dismiss(t('Success!'));
+  }
+  print ajax_render($output);
+  exit;
+}
+
+/**
+ * Implements hook_form().
+ *
+ * File Embed Options Form
+ */
+function copysafe_pdf_protection_class_form($form, $form_state) {
+  $form['filenamepdf'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $form_state['filename'],
+    '#title' => t('File Name'),
+    '#disabled' => TRUE,
+  );
+  $form['copysafe_pdf_protection_width'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_width', '600'),
+    '#title' => t('Viewer Width'),
+    '#size' => 20,
+    '#field_suffix' => t('(in pixels - leave blank to use filename settings)'),
+  );
+  $form['copysafe_pdf_protection_height'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_height', '600'),
+    '#title' => t('Viewer Height'),
+    '#size' => 20,
+    '#field_suffix' => t('(in pixels)'),
+  );
+  $form['copysafe_pdf_protection_printsallowed'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_printsallowed', 0),
+    '#title' => t('Prints Allowed'),
+    '#size' => 20,
+  );
+  $form['copysafe_pdf_protection_printsanywhere'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('copysafe_pdf_protection_printsanywhere', 0),
+    '#title' => t('Prints Anywhere'),
+    '#size' => 20,
+  );
+  $form['copysafe_pdf_protection_allowcapture'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('copysafe_pdf_protection_allowcapture', 0),
+    '#title' => t('Allow Capture'),
+    '#size' => 20,
+  );
+  $form['copysafe_pdf_protection_allowremote'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('copysafe_pdf_protection_allowremote', 0),
+    '#title' => t('Allow Remote'),
+  );
+  $form['copysafe_pdf_protection_bgd'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_bgd', 'CCCCCC'),
+    '#title' => t('Background'),
+    '#field_suffix' => t('(without the #)'),
+  );
+  $form['insertcodepdf'] = array(
+    '#type' => 'submit',
+    '#value' => t('Insert'),
+    '#submit' => array('copysafe_pdf_protection_class_form_submit'),
+  );
+  $form['cancel'] = array(
+    '#type' => 'submit',
+    '#value' => t('Cancel'),
+    '#submit' => array('copysafe_pdf_protection_class_form_cancel'),
+  );
+  return $form;
+}
+
+/**
+ * Submit validator for individual file settings form().
+ */
+function copysafe_pdf_protection_class_form_submit($form, $form_state) {
+  $filename = $form_state['values']['filenamepdf'];
+  variable_set('filenamepdf', $filename);
+  $copysafe_pdf_protection_width = $form_state['values']['copysafe_pdf_protection_width'];
+  variable_set('copysafe_pdf_protection_width', $copysafe_pdf_protection_width);
+  $copysafe_pdf_protection_height = $form_state['values']['copysafe_pdf_protection_height'];
+  variable_set('copysafe_pdf_protection_height', $copysafe_pdf_protection_height);
+  $copysafe_pdf_protection_printsanywhere = $form_state['values']['copysafe_pdf_protection_printsanywhere'];
+  variable_set('copysafe_pdf_protection_printsanywhere', $copysafe_pdf_protection_printsanywhere);
+  $copysafe_pdf_protection_printsallowed = $form_state['values']['copysafe_pdf_protection_printsallowed'];
+  variable_set('copysafe_pdf_protection_printsallowed', $copysafe_pdf_protection_printsallowed);
+  $copysafe_pdf_protection_allowcapture = $form_state['values']['copysafe_pdf_protection_allowcapture'];
+  variable_set('copysafe_pdf_protection_allowcapture', $copysafe_pdf_protection_allowcapture);
+  $copysafe_pdf_protection_allowremote = $form_state['values']['copysafe_pdf_protection_allowremote'];
+  variable_set('copysafe_pdf_protection_allowremote', $copysafe_pdf_protection_allowremote);
+  $copysafe_pdf_protection_bgd = $form_state['values']['copysafe_pdf_protection_bgd'];
+  variable_set('copysafe_pdf_protection_bgd', $copysafe_pdf_protection_bgd);
+}
+
+/**
+ * Cancel button function().
+ */
+function copysafe_pdf_protection_class_form_cancel() {
+
+}
+
+/**
+ * Callback for hook_menu().
+ */
+function copysafe_pdf_protection_config() {
+  return drupal_get_form('copysafe_pdf_protection_config_form');
+}
+
+/**
+ * Implements hook_form().
+ *
+ * File Upload Field and table listing files of the CopSafe PDF Configuration.
+ */
+function copysafe_pdf_protection_config_form($form, $form_state) {
+  $form['custom_field_name']['imagepdf'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('File Upload'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array(0 => 'class'),
+       // 'file_validate_size' => array(600),
+       // 'file_validate_image_resolution' => array('64x64', '10x10')
+    ),
+    '#upload_location' => 'public://' . variable_get('copysafe_pdf_protection_uploadfolder', 'upload_folder/copysafe_pdf_protection') . '/',
+    '#description' => t("Upload a '.class' file."),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#submit' => array('copysafe_pdf_protection_form_submit'),
+  );
+
+  $result = db_query("SELECT * FROM {file_managed}");
+  $header = array();
+  $header[] = array('data' => 'File', 'field' => 'filename');
+  $header[] = array('data' => 'Size', 'field' => 'filesize');
+  $header[] = array('data' => 'Date', 'field' => 'timestamp');
+  $header[] = array('data' => 'Delete');
+
+  $data = array();
+  foreach ($result as $record) {
+    if (strpos($record->uri, 'public://upload_folder/copysafe_pdf_protection') !== FALSE) {
+      $size = round($record->filesize / 1024, 2) . "KB";
+      $date = date('d-m-Y H:i:s', $record->timestamp);
+      $file = url('copysafe_pdf_protection/file_delete/');
+      $del = '<a href="' . $file . $record->fid . '">Delete</a>';
+      $data[$record->fid] = array($record->filename,$size,$date,$del);
+    }
+  }
+  $html = theme('table', array('header' => $header, 'rows' => $data));
+  $form['htmlpdf'] = array(
+    '#type' => 'markup',
+    '#markup' => $html,
+  );
+
+  return $form;
+}
+
+/**
+ * Submit validator for copysafe_pdf_protection_config_form.
+ */
+function copysafe_pdf_protection_config_form_submit(&$form, $form_state) {
+  $fid = $form_state['values']['imagepdf'];
+  $file = file_load($fid);
+  file_create_url($file->uri);
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+}
+
+/**
+ * Callback for hook_menu().
+ */
+function copysafe_pdf_protection_delete() {
+  return drupal_get_form('copysafe_pdf_protection_delete_form');
+}
+
+/**
+ * Confirmation form for delete.
+ */
+function copysafe_pdf_protection_delete_form($form, $form_state) {
+  $form['html'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>Are you sure that you want to delete? </p>',
+  );
+
+  $form['delete'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete'),
+    '#submit' => array('copysafe_pdf_protection_delete_form_delete'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Cancel'),
+    '#submit' => array('copysafe_pdf_protection_delete_form_cancel'),
+  );
+  return $form;
+}
+
+/**
+ * Delete for confirmed .
+ */
+function copysafe_pdf_protection_delete_form_delete($fid) {
+  $val = arg(2);
+  db_query("DELETE FROM {file_managed} where fid=$val");
+  drupal_goto('admin/config/copysafe/copysafe_pdf_protection/list');
+}
+
+/**
+ * Cancel for confirmed.
+ */
+function copysafe_pdf_protection_delete_form_cancel() {
+  drupal_goto('admin/config/copysafe/copysafe_pdf_protection/list');
+}
+
+/**
+ * Callback for hook_menu().
+ */
+function copysafe_pdf_protection_settings() {
+  return drupal_get_form('copysafe_pdf_protection_settings_form');
+}
+
+/**
+ * Implements hook_form().
+ *
+ * CopSafe PDF Settings form of the admin Configuration.
+ */
+function copysafe_pdf_protection_settings_form($form, $form_state) {
+
+  $form['copysafe_pdf_protection_uploadfolder'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_uploadfolder', 'upload_folder/copysafe_pdf_protection'),
+    '#title' => t('Upload Folder'),
+    '#field_prefix' => t('sites/default/files/'),
+    '#required' => TRUE,
+  );
+
+  $form['copysafe_pdf_protection_size'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_size', ''),
+    '#title' => t('Maximum Upload Size'),
+    '#field_suffix' => t('KB'),
+  );
+
+  $form['copysafe_pdf_protection_mode'] = array(
+    '#type' => 'select',
+    '#default_value' => variable_get('copysafe_pdf_protection_mode', ''),
+    '#options' => array(
+      'demo' => t('Demo Mode'),
+      'licensed' => t('Licensed'),
+      'debug' => t('Debugging Mode'),
+    ),
+    '#title' => t('Mode'),
+  );
+
+  $form['copysafe_pdf_protection_language'] = array(
+    '#type' => 'select',
+    '#default_value' => variable_get('copysafe_pdf_protection_language', ''),
+    '#options' => array(
+      '0c01' => t('Arabic'),
+      '0004' => t('Chinese (simplified)'),
+      '0413' => t('Dutch'),
+      '' => t('English'),
+      '0464' => t('Filipino'),
+      '000c' => t('French'),
+      '0007' => t('German'),
+      '040d' => t('Hebrew'),
+      '0439' => t('Hindi'),
+      '000e' => t('Hungarian'),
+      '0410' => t('Italian'),
+      '0411' => t('Japanese'),
+      '0415' => t('Polish'),
+      '0816' => t('Portuguese (PT)'),
+      '0419' => t('Russian'),
+      '0c0a' => t('Spanish'),
+      '041e' => t('Thai'),
+      '002a' => t('Vietnamese'),
+    ),
+    '#title' => t('Language'),
+  );
+
+  $form['copysafe_pdf_protection_pagecolor'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('copysafe_pdf_protection_pagecolor', 'CCCCCC'),
+    '#title' => t('Page Color'),
+  );
+
+  $options = array(
+    'ie' => t('Allow IE'),
+    'firefox' => t('Allow Firefox'),
+    'chrome' => t('Allow Chrome'),
+    'navigator' => t('Allow Navigator'),
+    'opera' => t('Allow Opera'),
+    'safari' => t('Allow Safari'),
+  );
+
+  $default = array(
+    'ie'     => 'ie',
+    'firefox'   => 'firefox',
+    'chrome'   => 'chrome',
+    'navigator' => 'navigator',
+    'opera'   => 'opera',
+    'safari'   => 'safari',
+  );
+
+  $form['copysafe_pdf_protection_browser'] = array(
+    '#title' => t('Select Browsers'),
+    '#type' => 'checkboxes',
+    '#default_value' => variable_get('copysafe_pdf_protection_browser', $default),
+    '#options' => $options,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit validator for copysafe_pdf_protection_settings_form.
+ */
+function copysafe_pdf_protection_settings_form_submit($form, $form_state) {
+  $folder = $form_state['values']['copysafe_pdf_protection_uploadfolder'];
+  variable_set('copysafe_pdf_protection_uploadfolder', $folder);
+  $size = $form_state['values']['copysafe_pdf_protection_size'];
+  variable_set('copysafe_pdf_protection_size', $size);
+  $mode = $form_state['values']['copysafe_pdf_protection_mode'];
+  variable_set('copysafe_pdf_protection_mode', $mode);
+  $language = $form_state['values']['copysafe_pdf_protection_language'];
+  variable_set('copysafe_pdf_protection_language', $language);
+  $copysafe_pdf_protection_pagecolor = $form_state['values']['copysafe_pdf_protection_pagecolor'];
+  variable_set('copysafe_pdf_protection_pagecolor', $copysafe_pdf_protection_pagecolor);
+  $browser = $form_state['values']['copysafe_pdf_protection_browser'];
+  variable_set('copysafe_pdf_protection_browser', $browser);
+  drupal_flush_all_caches();
+  drupal_set_message(t('The form has been submitted.'));
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function copysafe_pdf_protection_filter_info() {
+  $filters['copysafe_pdf_protection_strip'] = array(
+    'title' => t('CopySafe PDF'),
+    'description' => t('Enable copysafe_pdf_protection tag replacement.'),
+    'prepare callback' => 'copysafe_pdf_protection_filter_strip',
+    'tips callback' => 'copysafe_pdf_protection_filter_strip_tips',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+
+/**
+ * Function() for CopySafe PDF Tag Replacement.
+ */
+function copysafe_pdf_protection_filter_strip($text, $filter, $format, $langcode, $cache, $cache_id) {
+
+  if (preg_match_all('/\[copysafe_pdf_protection[^\]]+\]/i', $text, $matches)) {
+
+    drupal_add_js(drupal_get_path('module', 'copysafe_pdf_protection') . '/copysafe_pdf_protection.js');
+
+    foreach ($matches[0] as $matched) {
+
+      $img = array();
+      preg_match_all('/(bgwidth|bgheight|name|prints_allowed|print_anywhere|allow_capture|allow_remote|background)=([\'|"][^\']*[\'|"])/i', $matched, $img);
+      $atts = array();
+      for ($i = 0; $i < count($img[1]); $i++) {
+        $atts[$img[1][$i]] = $img[2][$i];
+      }
+
+      static $embed_id;
+
+      if (!isset($embed_id)) {
+        $embed_id = 0;
+      }
+
+      $csp_id = "copysafe_pdf_protection_id" . $embed_id;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['language'] = variable_get('copysafe_pdf_protection_language', '');
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['mode'] = variable_get('copysafe_pdf_protection_mode', '');
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['bgheight'] = (isset($atts['bgheight'])) ? str_replace("'", "", $atts['bgheight']) : '';
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['bgwidth'] = (isset($atts['bgwidth'])) ? str_replace("'", "", $atts['bgwidth']) : '';
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['name'] = str_replace("'", "", $atts['name']);
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['prints_allowed'] = (isset($atts['prints_allowed'])) ? str_replace("'", "", $atts['prints_allowed']) : 0;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['print_anywhere'] = (isset($atts['print_anywhere'])) ? str_replace("'", "", $atts['print_anywhere']) : 0;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['allow_capture'] = (isset($atts['allow_capture'])) ? str_replace("'", "", $atts['allow_capture']) : 0;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['allow_remote'] = (isset($atts['allow_remote'])) ? str_replace("'", "", $atts['allow_remote']) : 0;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['background'] = (isset($atts['background'])) ? str_replace("'", "", $atts['background']) : 'CCCCCC';
+      $default = array(
+        'ie' => 'ie',
+        'firefox' => 'firefox',
+        'chrome' => 'chrome',
+        'navigator' => 'navigator',
+        'opera' => 'opera',
+        'safari' => 'safari',
+      );
+      $browser = variable_get('copysafe_pdf_protection_browser', $default);
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['name'] = str_replace("'", "", $atts["name"]);
+      $filename = str_replace("'", "", $atts["name"]);
+
+      global $base_url;
+      $upload_folder = variable_get('file_public_path', conf_path() . '/files') . "/" . variable_get('copysafe_pdf_protection_uploadfolder', 'upload_folder/copysafe_pdf_protection') . "/";
+
+      if (!file_exists($upload_folder . $filename)) {
+        return "<div style='padding:5px 10px;background-color:#fffbcc'><strong>File($filename) don't exist</strong></div>";
+      }
+
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['chrome'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['firefox'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['navigator'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['opera'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['safari'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['msie'] = "";
+
+      if (isset($browser['chrome'])) {
+        if ($browser['chrome'] === "chrome") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['chrome'] = 1;
+        }
+      }
+
+      if (isset($browser['firefox'])) {
+        if ($browser['firefox'] === "firefox") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['firefox'] = 1;
+        }
+      }
+
+      if (isset($browser['navigator'])) {
+        if ($browser['navigator'] === "navigator") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['navigator'] = 1;
+        }
+      }
+
+      if (isset($browser['opera'])) {
+        if ($browser['opera'] === "opera") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['opera'] = 1;
+        }
+      }
+
+      if (isset($browser['safari'])) {
+        if ($browser['safari'] === "safari") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['safari'] = 1;
+        }
+      }
+
+      if (isset($browser['ie'])) {
+        if ($browser['ie'] === "ie") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['msie'] = 1;
+        }
+      }
+
+      $plugin_url = $base_url . '/' . drupal_get_path('module', 'copysafe_pdf_protection') . '/';
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['plugin_url'] = $base_url . '/' . drupal_get_path('module', 'copysafe_pdf_protection') . '/';
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['plugin_path'] = $base_url . '/' . drupal_get_path('module', 'copysafe_pdf_protection') . '/';
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['upload_path'] = $base_url . '/' . $upload_folder;
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['upload_url'] = $base_url . '/' . $upload_folder;
+      drupal_add_js($settings, array('type' => 'setting'));
+      drupal_add_js(array('copysafe_pdf_protection' => array()), 'setting');
+
+      static $inc;
+
+      if (!isset($inc)) {
+        $inc = 0;
+      }
+
+      $outputid = "pdfoutput" . $inc;
+
+      $output = <<<html
+        <NOSCRIPT><meta http-equiv="refresh" content="0;url={$plugin_url}download_javascript.html"></NOSCRIPT>
+        <div id = $outputid>
+        </div>
+html;
+
+      $text = copysafe_pdf_protection_str_replace_once($matched, $output, $text);
+      $embed_id++;
+      $inc = $inc + 1;
+    }
+  }
+
+  return $text;
+}
+
+/**
+ * Function() for CopySafe PDF string replacement.
+ */
+function copysafe_pdf_protection_str_replace_once($str_pattern, $str_replacement, $string) {
+
+  if (strpos($string, $str_pattern) !== FALSE) {
+    return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
+  }
+
+  return $string;
+}
+
+/**
+ * Function() for CopySafe PDF MS Office HTML header tags stripped tip.
+ */
+function copysafe_pdf_protection_filter_strip_tips($filter, $format, $long) {
+  return t('HTML header tags generated by Microsoft Office are stripped');
+}
