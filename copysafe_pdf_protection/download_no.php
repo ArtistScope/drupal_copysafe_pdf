@@ -8,7 +8,7 @@
 </head>
 
 <body bgcolor="#DDDDDD" text="#333333" link="#3333FF" vlink="#3333FF" alink="#FF0000">
-<a name="top"></a><br/>
+<a name="top"></a><br>
 <div align="center">
   <table class="text" border="0" cellpadding="0" cellspacing="0" width="860">
     <tr>
@@ -16,17 +16,13 @@
   <table class="text" border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
             <td dir="ltr" width="30"><img alt="" border="0" src="images/corner_top_left_clear.gif" width="30" height="63"></td>
-      <td dir="ltr" background="images/top_bg.gif">
-      <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
-        <tr>
-          <td>
-			<img alt="" border="0" src="images/artistscope-logo48.png" width="48" height="48"></td>
-          <td><font face="Arial, Helvetica, sans-serif" size="2">
-      <a href="http://www.artistscope.com">
-      <img alt="" border="0" src="images/header_logo_blue.jpg" width="200" height="40"></a></font></td>
-        </tr>
-      </table>
-      </td>
+            <td dir="ltr" background="images/top_bg.gif"> 
+              <table class="text" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber4">
+                <tr> 
+                  <td><a href="http://www.artistscope.com"><img alt="" src="images/artistscope_toplogo.jpg" border="0" width="280" height="48"></a></td>
+                </tr>
+              </table>
+            </td>
       <td align="center" dir="ltr" background="images/top_bg.gif">
       <table class="text" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
         <tr>
@@ -83,7 +79,7 @@
       <td>
       <table border="0" cellpadding="10" cellspacing="0" style="BORDER: 1px solid #B1B1B1; border-collapse:collapse" width="100%">
           <tr>
-            <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader &amp; Plugin Download</b></td>
+                              <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader Download</b></td>
             <td align="center" class="textGray">Secure solutions for all media, documents and web pages.</td>
           </tr>
         </table>
@@ -100,19 +96,19 @@
             <table class="text" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
               <tr>
                 <td width="628" dir="ltr" align="left" valign="top"><b>
-				Your platform or web browser has not been permitted access<br/>
-                </b><br/>
+				Your platform or web browser has not been permitted access<br>
+                </b><br>
                 <hr size="1" noshade align="left" style="width: 100%; height: 1px; color: #C0C0C0">
                 Access may have been disabled by the site owner.
                 A webmaster can nominate to allow or disallow access according to 
-				OS, platform, web browser and version. <br/><br/>
-                    <b>Windows</b><br/><br/>
-                                      Browsers supported are IE6+, Firefox 
-				5+, Netscape 9+, Chrome, Opera 9+ and Safari 5+.<br/>
-                                      <br/>
-                    <b>Mac OS </b><br/><br/>
-                    Mac web browsers are not supported.<br/><br/>
-                    <b>Linux</b><br/><br/>
+				OS, platform, web browser and version. <br><br>
+                    <b>Windows</b><br><br>
+                                      Browsers supported are ASPS, IE8+, Firefox 
+                                      5+, Chrome, Opera 9+ and Safari 5+.<br>
+                                      <br>
+                    <b>Mac OS </b><br><br>
+                    Mac web browsers are not supported.<br><br>
+                    <b>Linux</b><br><br>
                     Linux web browsers are not supported.</td>
               </tr>
             </table>
@@ -122,19 +118,19 @@
                                     <table class="text" border="0" cellpadding="10" cellspacing="0" width="100%">
                                       <tr> 
                                         <td width="200" dir="ltr"><b>
-										Related Links</b><br/>
-                                          <br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe PDF</a><br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br/>
+										Related Links</b><br>
+                                          <br>
+                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe PDF</a><br>
+                                          <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
+                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
                                           <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp">
-										Online Demos</a><br/>
-                                          <br/>
+										Online Demos</a><br>
+                                          <br>
                                           The CopySafe PDF Reader and web 
 										browser plugin are a free download to 
-										everyone.<br/>
-                                          <br/>
-                                          <br/>
+										everyone.<br>
+                                          <br>
+                                          <br>
                                           <img border="0" src="images/clear.gif" width="162" height="8"></td>
                                       </tr>
                                     </table>
@@ -169,8 +165,8 @@
       <td align="center"><table border="0" cellpadding="10" cellspacing="0" width="100%">
   <tr>
     <td width="100%" align="center">
-              <div class="smText">Copyright &#169; 1998-2013 ArtistScope. All Rights 
-							Reserved.</div>
+              <div class="smText">Copyright &#169; 1998-2015 ArtistScope. All 
+                Rights Reserved.</div>
             </td>
   </tr>
 </table></td>

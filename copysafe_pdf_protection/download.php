@@ -11,7 +11,7 @@
 </head>
 
 <body bgcolor="#DDDDDD" text="#333333" link="#3333FF" vlink="#3333FF" alink="#FF0000">
-<a name="top"></a><br/>
+<a name="top"></a><br>
 <div align="center">
   <table class="text" border="0" cellpadding="0" cellspacing="0" width="860">
     <tr>
@@ -23,11 +23,8 @@
       <td dir="ltr" background="images/top_bg.gif">
       <table class="text" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber4">
         <tr>
-          <td>
-			<img alt="" border="0" src="images/artistscope-logo48.png" width="48" height="48"></td>
-          <td><font face="Arial, Helvetica, sans-serif" size="2">
-      <a href="http://www.artistscope.com">
-      <img alt="" border="0" src="images/header_logo_blue.jpg" width="200" height="40"></a></font></td>
+                  <td><a href="http://www.artistscope.com"><img alt="" src="images/artistscope_toplogo.jpg" border="0" width="280" height="48"></a></td>
+
         </tr>
       </table>
       </td>
@@ -87,7 +84,7 @@
       <td>
       <table border="0" cellpadding="10" cellspacing="0" style="BORDER: 1px solid #B1B1B1;; border-collapse:collapse" width="100%">
           <tr>
-            <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader &amp; Plugin Download</b></td>
+                              <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader Download</b></td>
             <td align="center" class="textGray">Secure solutions for media, documents and web pages.</td>
           </tr>
         </table>
@@ -104,15 +101,12 @@
             <table class="text" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
               <tr>
                                     <td width="628" align="left"><b><font size="2"> 
-                                      Reader &amp; Plugin Installation</font></b><br/>
-                <div class="text" dir="ltr">
-
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                          
-                                        <div class="text" align="center"> Version 
+                                      Reader &amp; Plugin Installation</font></b><br>
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                      <div class="text" align="center"> Version 
                                           3 Reader inludes plugins for all popular 
-                                          web browsers.<br/>
-                                          <br/>
+                                          web browsers.<br>
+                                          <br>
                                           <table class="text" border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse" bordercolor="#C0C0C0" id="AutoNumber3" bgcolor="#FFFFFF" width="80%">
                                             <tr>
                         <td width="100%">
@@ -121,8 +115,10 @@
             <td nowrap align="center"><a href="http://images.artistscope.com/download/CopysafePDFreader.exe"><img src="images/copysafe48.png" border="0" width="48" height="48"></a>
             </td>
              <td nowrap align="left"><b>CopySafe PDF Reader &amp; Plugin</b></td>
-             <td nowrap align="center">5.95 Mb</td>
-            <td nowrap><a href="http://images.artistscope.com/download/CopysafePDFreader.exe"><u>Download and install now</u></a></td>
+                                                  <td nowrap align="center">6.74 
+                                                    Mb</td>
+                                                  <td nowrap><a href="http://images.artistscope.com/download/CopysafePDFreader.exe"><u>Download 
+                                                    now</u></a></td>
           </tr>
         </table>
                         </td>
@@ -130,25 +126,21 @@
                     </table>
                   </div>
                   <div align="center">
-     <table class="text" border="0" cellpadding="10" cellspacing="0" width="500" >
+     <table class="text" border="0" cellpadding="10" cellspacing="0" width="100%" >
        <tr> 
-      <td nowrap align="center"><br/>
-        If you have already installed 
-		this software and keep returning here you may need to restart 
-		<br/>your browser to update its Add-ons list. Check that CopySafe PDF Reader is allowed to run.<br/>
-                                                <br/>
-<script language="JavaScript" type="text/javascript">
-	if (m_szReferrer != undefined) {
-	document.write("<a href='" + m_szReferrer + "'");
-	document.write("<u>Return to the protected document</u>");
-	document.write("</a>");
-	}
-</script><br/>
-<br/>
-Note: You must click OK to any prompts about allowing this plugin to run.</td>
+      <td align="center"><br>
+                                              If you have already installed this 
+                                              software and keep returning here, 
+                                              you may be using a web browser that 
+                                              no longer supports proper browser 
+                                              plugins. For no-nonsense plugin 
+                                              support we recommend that you download 
+                                              and install the <a href="download-asps.php"><u>ASPS 
+                                              Web Browser</u></a>. </td>
     </tr>
     </table>
-                                          </div>
+                                          
+
                   </div></td>
               </tr>
             </table>
@@ -157,19 +149,19 @@ Note: You must click OK to any prompts about allowing this plugin to run.</td>
                                   <td valign="top"> 
                                     <table class="text" border="0" cellpadding="10" cellspacing="0" width="100%">
                                       <tr> 
-                                        <td width="200" dir="ltr"><b>
-										Related Links</b><br/>
-                                          <br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe PDF</a><br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br/>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp">
-										Online Demos</a><br/>
-                                          <br/>
-                                          The CopySafe PDF Reader and its web 
-										browser plugin are a free download to 
-										everyone.<br/>
-                                          <img border="0" src="images/clear.gif" width="162" height="8"></td>
+                                        
+                                    <td width="200" dir="ltr"><b> Related Links</b><br>
+                                      <br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe 
+                                      PDF</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp"> 
+                                      Online Demos</a><br>
+                                      <br>
+                                      The CopySafe PDF Reader and web browser 
+                                      plugin are a free download to everyone. 
+                                      <img border="0" src="images/clear.gif" width="162" height="8"></td>
                                       </tr>
                                     </table>
                                   </td>
@@ -201,7 +193,10 @@ Note: You must click OK to any prompts about allowing this plugin to run.</td>
     <tr>
       <td align="center"><table border="0" cellpadding="10" cellspacing="0" width="100%">
   <tr>
-    <td width="100%" align="center"><div class="smText">Copyright &#169; 1998-2013 ArtistScope. All Rights Reserved.</div></td>
+    <td width="100%" align="center">
+              <div class="smText">Copyright &#169; 1998-2015 ArtistScope. All 
+                Rights Reserved.</div>
+            </td>
   </tr>
 </table></td>
     </tr>

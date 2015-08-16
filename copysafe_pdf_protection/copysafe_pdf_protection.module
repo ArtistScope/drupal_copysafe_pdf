@@ -526,21 +526,30 @@ function copysafe_pdf_protection_settings_form($form, $form_state) {
     '#options' => array(
       '0c01' => t('Arabic'),
       '0004' => t('Chinese (simplified)'),
+	'0404' => t('Chinese (traditional)'),
+	'041a' => t('Croatian'),
+	'0405' => t('Czech)'),
       '0413' => t('Dutch'),
       '' => t('English'),
       '0464' => t('Filipino'),
       '000c' => t('French'),
       '0007' => t('German'),
+	'0408' => t('Greek'),
       '040d' => t('Hebrew'),
       '0439' => t('Hindi'),
       '000e' => t('Hungarian'),
+	'0421' => t('Indonesian'),
       '0410' => t('Italian'),
       '0411' => t('Japanese'),
+	'0412' => t('Korean'),
+	'043e' => t('Malay'),
       '0415' => t('Polish'),
-      '0816' => t('Portuguese (PT)'),
+      '0416' => t('Portuguese (BR)'),
+	'0816' => t('Portuguese (PT)'),
       '0419' => t('Russian'),
       '0c0a' => t('Spanish'),
       '041e' => t('Thai'),
+	'041f' => t('Turkish'),
       '002a' => t('Vietnamese'),
     ),
     '#title' => t('Language'),
@@ -556,7 +565,7 @@ function copysafe_pdf_protection_settings_form($form, $form_state) {
     'ie' => t('Allow IE'),
     'firefox' => t('Allow Firefox'),
     'chrome' => t('Allow Chrome'),
-    'navigator' => t('Allow Navigator'),
+    'asps' => t('Allow ASPS'),
     'opera' => t('Allow Opera'),
     'safari' => t('Allow Safari'),
   );
@@ -565,7 +574,7 @@ function copysafe_pdf_protection_settings_form($form, $form_state) {
     'ie'     => 'ie',
     'firefox'   => 'firefox',
     'chrome'   => 'chrome',
-    'navigator' => 'navigator',
+    'asps' => 'asps',
     'opera'   => 'opera',
     'safari'   => 'safari',
   );
@@ -658,7 +667,7 @@ function copysafe_pdf_protection_filter_strip($text, $filter, $format, $langcode
         'ie' => 'ie',
         'firefox' => 'firefox',
         'chrome' => 'chrome',
-        'navigator' => 'navigator',
+        'asps' => 'asps',
         'opera' => 'opera',
         'safari' => 'safari',
       );
@@ -675,7 +684,7 @@ function copysafe_pdf_protection_filter_strip($text, $filter, $format, $langcode
 
       $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['chrome'] = "";
       $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['firefox'] = "";
-      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['navigator'] = "";
+      $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['asps'] = "";
       $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['opera'] = "";
       $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['safari'] = "";
       $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['msie'] = "";
@@ -692,9 +701,9 @@ function copysafe_pdf_protection_filter_strip($text, $filter, $format, $langcode
         }
       }
 
-      if (isset($browser['navigator'])) {
-        if ($browser['navigator'] === "navigator") {
-          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['navigator'] = 1;
+      if (isset($browser['asps'])) {
+        if ($browser['asps'] === "asps") {
+          $settings['copysafe_pdf_protection']['embed_options'][$csp_id]['asps'] = 1;
         }
       }
 

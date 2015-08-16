@@ -14,7 +14,7 @@
 
         var m_bpChrome = Drupal.settings.copysafe_pdf_protection.embed_options[val]['chrome'];
         var m_bpFx = Drupal.settings.copysafe_pdf_protection.embed_options[val]['firefox'];
-        var m_bpNav = Drupal.settings.copysafe_pdf_protection.embed_options[val]['navigator'];
+        var m_bpASPS = Drupal.settings.copysafe_pdf_protection.embed_options[val]['asps'];
         var m_bpOpera = Drupal.settings.copysafe_pdf_protection.embed_options[val]['opera'];
         var m_bpSafari = Drupal.settings.copysafe_pdf_protection.embed_options[val]['safari'];
         var m_bpMSIE = Drupal.settings.copysafe_pdf_protection.embed_options[val]['msie'];
@@ -45,13 +45,7 @@
         var m_szPlugin = "";
         var m_bWin64 = ((m_szPlatform == "win64") || (m_szPlatform.indexOf("win64") != -1) || (m_szAgent.indexOf("win64") != -1));
         var m_bWin32 = ((m_szPlatform == "win32") || (m_szPlatform.indexOf("win32") != -1));
-        var m_bWin2k = ((m_szAgent.indexOf("windows nt 5.0") != -1) || (m_szAgent.indexOf("windows 2000") != -1));
-        var m_bWinxp = ((m_szAgent.indexOf("windows nt 5.1") != -1) || (m_szAgent.indexOf("windows xp") != -1));
-        var m_bWin2k3 = (m_szAgent.indexOf("windows nt 5.2") != -1);
-        var m_bVista = (m_szAgent.indexOf("windows nt 6.0") != -1);
-        var m_bWindows7 = (m_szAgent.indexOf("windows nt 6.1") != -1);
-        var m_bWindows8 = (m_szAgent.indexOf("windows nt 6.2") != -1);
-        var m_bWindows = (((m_bWin2k) || (m_bWinxp) || (m_bWin2k3) || (m_bVista) || (m_bWindows7) || (m_bWindows8)) && ((m_bWin32) || (m_bWin64)));
+        var m_bWindows = (m_szAgent.indexOf("windows nt") != -1);
 
         var m_bOpera = ((m_szAgent.indexOf("opera") != -1) && !!(window.opera && window.opera.version) && (m_bpOpera));
         var m_bFx3 = ((m_szAgent.indexOf("firefox/3.") != -1) && (m_szAgent.indexOf("flock") == -1) && (m_szAgent.indexOf("navigator") == -1));
@@ -59,9 +53,9 @@
         var m_bFirefox = ((m_szAgent.indexOf("firefox") != -1) && testCSS("MozBoxSizing") && (!(m_bFx3)) && (!(m_bFx4)) && (m_bpFx));
         var m_bSafari = ((m_szAgent.indexOf("safari") != -1) && Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 && (m_bpSafari));
         var m_bChrome = ((m_szAgent.indexOf("chrome") != -1) && !!(window.chrome && chrome.webstore && chrome.webstore.install) && (m_bpChrome));
-        var m_bNav = ((m_szAgent.indexOf("navigator") != -1) && (m_bpNav));
+        var m_bASPS = ((m_szAgent.indexOf("artisreader/2") != -1) && (m_bpASPS));
 
-        var m_bNetscape = ((m_bChrome) || (m_bFirefox) || (m_bNav) || (m_bOpera) || (m_bSafari));
+        var m_bNetscape = ((m_bChrome) || (m_bFirefox) || (m_bASPS) || (m_bOpera) || (m_bSafari));
         var m_bMicrosoft = ((m_szAgent.indexOf("msie") != -1) && (/*@cc_on!@*/false || testCSS("msTransform")) && (m_bpMSIE));
 
         if (m_szMode == "debug") {
@@ -113,7 +107,7 @@
     var x = "";
 
     if (typeof navigator.plugins != "undefined" && navigator.plugins.length > 0) {
-      // Navigator, firefox, mozilla
+      // Chrome, firefox, mozilla
 
       navigator.plugins.refresh(false);
 
