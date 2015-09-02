@@ -1,17 +1,53 @@
 <html>
 <head>
-<title>ArtistScope</title>
+<title>Download the ASPS Web Browser</title>
 <meta http-equiv="Content-Language" content="en-us">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script language="JavaScript" type="text/javascript">
+    var m_szReferrer = document.location.search.substring(1).split('=')[1];
+</script>
 <script type="text/javascript">
-    var m_szReferrer = document.location.search.substring(1).split('ref=')[1];
-  </script>
-<SCRIPT type="text/javascript">
-	var m_szAgent = navigator.userAgent.toLowerCase();
-	var m_bTrident = (m_szAgent.indexOf('trident')!=-1);
-	var m_bTrident6 = (m_szAgent.indexOf('trident/6')!=-1);
-	var m_bTrident5 = (m_szAgent.indexOf('trident/5')!=-1);
-</SCRIPT>
+
+var ua = navigator.userAgent.toLowerCase(); 
+var newmessage = "";
+ 
+    if (/chrome[\/\s](\d+\.\d+)/.test(ua)){    
+		var chromeversion = new Number(RegExp.$1);   	
+		if (chromeversion >= 42){
+    	 	newmessage = "1";
+		}
+	}
+
+
+	if (ua.indexOf("safari")!=-1){
+	 	newmessage = "1";
+	}
+
+
+	var m_bTrident = (ua.indexOf('trident')!=-1);
+	var m_bTrident6 = (ua.indexOf('trident/6')!=-1);
+	var m_bTrident5 = (ua.indexOf('trident/5')!=-1);
+	if ((m_bTrident) && (!(m_bTrident6)) && (!(m_bTrident5))) {
+		newmessage = "1";
+	}
+
+</script>
+<script type="text/javascript">
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+	var errmess = getParameterByName('ms');
+	var inmessage = "";
+	
+	if ((errmess == "chrome") || (errmess == "trident")){
+		inmessage = "<table width='95%' border='0' cellspacing='0' cellpadding='0'><tr><td class='text' align='left' style='text-align: justify'><font color='#FF3333'>Your version of web browser no longer supports significant plugin types. So to view the protected pages on this site you will need to install and start the ASPS Web Browser manually; then navigate to the protected page that you wanted.</font></td></tr></table><br><br>";
+	}
+</script>
 <link REL="stylesheet" href="images/style.css" type="text/css">
 </head>
 
@@ -89,10 +125,10 @@
       <td>
       <table border="0" cellpadding="10" cellspacing="0" style="BORDER: 1px solid #B1B1B1;; border-collapse:collapse" width="100%">
           <tr>
-                              <td nowrap class="lgText" align="left"><b>Plugin 
-                                Download</b></td>
-            <td align="center" class="textGray">The most secure solutions for 
-            digital images, documents and web pages.</td>
+                              <td nowrap class="lgText" align="left"><b>CopySafe 
+                                PDF Reader Download</b></td>
+                              <td align="center" class="textGray">Secure solutions for media, documents 
+                                and web pages.</td>
           </tr>
         </table>
       </td>
@@ -101,76 +137,66 @@
       <td><img border="0" src="images/clr1x10.gif" height="10"></td>
     </tr>
     <tr>
-      <td valign="top" dir="ltr" background="images/table_shade_down_norm.jpg">
+      <td valign="top" dir="ltr">
         <table border="0" cellpadding="0" cellspacing="0">
           <tr>
             <td valign="top" width="628">
             <table border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
               <tr>
-                                    <td class="text" width="628" align="left"><b><font size="3">Copysafe 
-                                      Web Plugin Installation</font></b><br>
-                                      <br>
+                <td class="text" width="628" align="left"><b><font size="3">ASPS Web Browser</font></b><br><br>
                 <div class="text" dir="ltr">
 
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                           
-                                        <div align="center"> For all MSIE web browsers on 32-bit and 64-bit Windows computers.<br>
+                                        <div align="center"> <b>Download the ASPS 
+                                          Web Browser</b><br>
                                           <br>
-<SCRIPT type="text/javascript">
-	if ((m_bTrident) && (!(m_bTrident6)) && (!(m_bTrident5))) {
-		document.writeln("<br><div align=center><font color=#FF3333>Internet Explorer versions 11 and later do not allow ActiveX plugins to run.<br>Remedy: download and install the ASPS web browser. <br>Then use ASPS to return to the protected page.</font></div><br>");
-	}
-</SCRIPT>
-                                          <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse" bordercolor="#C0C0C0" id="AutoNumber3" bgcolor="#FFFFFF" width="80%">
-                                            <tr>
-                        <td width="100%">
-                                                <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-collapse: collapse" bordercolor="#111111">
-                                                  <tr> 
-            <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td nowrap>
-                                                      <div align="center"> <a href="http://www.artistscope.com/plugins/download_ie.asp"><img src="images/explorer.jpg" border="0"></a></div>
-            </td>
-                                                    <td class="text" nowrap align="left">Internet 
-                                                      Explorer</td>
-                                                      
-                                                    <td class="text" nowrap align="center"> 
-                                                      3.55 Mb</td>
-                                                    <td class="text" nowrap> <a href="http://www.artistscope.com/plugins/download_ie.asp"><u>Download 
-                                                      now</u></a></td>
-            <td class="text" nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          </tr>
-        </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                                        <div align="center"> <br>
-                                          <div align="center"> Or download the 
-                                            ASPS browser which includes the CopySafe 
-                                            Web plugin:<br>
-                                            <br>
-                                            <table style="border-collapse: collapse;" bgcolor="#ffffff" border="1" bordercolor="#c0c0c0" cellpadding="5" cellspacing="0">
+                                          <div align="center"> 
+      <script type="text/javascript">
+			if (newmessage == '1') {
+      			document.write("<table width='95%' border='0' cellspacing='0' cellpadding='0'><tr><td class='text' align='left' style='text-align: justify'><font color='#FF3333'>Your version of web browser no longer supports significant plugin types. So to view the protected pages on this site you will need to install and start the ASPS Web Browser manually; then navigate to the protected page that you wanted.</font></td></tr></table><br><br>");
+			}
+      </script>
+                                            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; border-color:#C0C0C0" bgcolor="#FFFFFF">
                                               <tr> 
                                                 <td width="100%" align="center"> 
-                                                  <table class="text" width="80%" border="0" cellspacing="0" cellpadding="3">
+                                                  <table width="80%" border="0" cellspacing="0" cellpadding="3">
                                                     <tr> 
-                                                      <td nowrap align="center"> 
-                                                        <a href="installers/ArtistScope_FX_47.exe"><img src="images/ie.gif" border="0" width="45" height="37"></a> 
+                                                      <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+                                                      <td nowrap>
+                                                        <div align="center"> <img src="images/windows50.jpg" width="61" height="50"></div>
                                                       </td>
-                                                      <td nowrap align="left">&nbsp;&nbsp;&nbsp;<b>ASPS 
-                                                        Web Browser</b>&nbsp;&nbsp;&nbsp;</td>
-                                                      <td nowrap>&nbsp;&nbsp;31.8 
-                                                        Mb &nbsp;</td>
-                                                      <td nowrap> <a href="http://images.artistscope.com/download/ASPS_Browser_install.exe"><u>Download 
-                                                        now</u></a></td>
-                                                      <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                      <td class="text" nowrap align="left">&nbsp;&nbsp;&nbsp;Windows 
+                                                        32-bit and 64-bit&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                      <td class="text" nowrap> 
+                                                        <a href="http://images.artistscope.com/download/ASPS_Browser_install.exe"><u>Download 
+                                                        Now</u></a></td>
+                                                      <td class="text" nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                     </tr>
                                                   </table>
                                                 </td>
                                               </tr>
                                             </table>
+                                            <br>
+                                            <table width="95%" border="0" cellspacing="0" cellpadding="0">
+                                              <tr> 
+                                                <td class="text" align="left" style="text-align: justify"> 
+                                                  The ASPS Web Browser is a standalone 
+                                                  application independent of other 
+                                                  readers and web browsers that 
+                                                  has been specially designed 
+                                                  to prevent the abuse of intellectual 
+                                                  property and preserve copy protection 
+                                                  limitations as and when required. 
+                                                  It is not designed to be a <i>popular</i> 
+                                                  web browser and the user agrees 
+                                                  that in using the ASPS Web Browser 
+                                                  that they are in full agreement 
+                                                  with all <a target="_blank" href="ASPSbrowser_license.pdf">terms 
+                                                  of use</a>.</td>
+                                              </tr>
+                                            </table>
                                           </div>
-
                                         </div>
                   </div></td>
               </tr>
@@ -180,21 +206,19 @@
                                   <td valign="top"> 
                                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                       <tr> 
-                                        <td width="200" class="text" dir="ltr"><b>Related 
-                                          Links</b><br>
-                                          <br>
-                                      <a href="http://www.artistscope.com/copysafe_web_protection.asp">CopySafe 
-                                      Web</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_web_protection_changes.asp">Changes</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_web_protection_faq.asp">FAQs</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_web_demos.asp">Online 
-                                      Demos</a><br>
+                                        
+                                    <td width="200" class="text" dir="ltr"><b>Related 
+                                      Links</b><br>
                                       <br>
-                                      The CopySafe Web plugin is a free download 
-                                      to anyone visiting a copy protected web 
-                                      page.<br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe 
+                                      PDF</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp"> 
+                                      Online Demos</a><br>
                                       <br>
-                                      <br>
+                                      The CopySafe PDF Reader and web browser 
+                                      plugin are a free download to everyone.<br>
                                           <img border="0" src="images/clear.gif" width="162" height="8"></td>
                                       </tr>
                                     </table>
@@ -241,5 +265,3 @@
 </body>
 
 </html>
-
-

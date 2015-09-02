@@ -1,0 +1,10 @@
+.qembedlinkpdf {
+  background: url("./images/copysafepdfbutton.png") no-repeat scroll 0 75% transparent;
+  float: right;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding-left: 32px;
+}
+#edit-imagepdf-upload-button {
+  display: none;
+}
