@@ -43,20 +43,7 @@
       <td width="100%" bgcolor="#B1B1B1" dir="ltr" colspan="3">
       <img alt="" border="0" src="images/clr1x10.gif" width="10" height="1"></td>
     </tr>
-    <tr>
-      <td nowrap height="25" width="1" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-            <td width="100%" nowrap height="25" background="images/menu_bg.gif" align="center"> 
-              <a href="http://www.artistscope.com/default.asp">Home</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/company.asp">Company</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/solutions.asp">Solutions</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp">
-				Demonstrations</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/news.asp">News</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/registrations.asp">Purchase</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/sitemap.asp">Site Map</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/contact.asp">Contact</a>&nbsp;</td>
-      <td width="1" nowrap height="25" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-    </tr>
+
   </table></td>
     </tr>
     <tr>
@@ -80,7 +67,8 @@
       <table border="0" cellpadding="10" cellspacing="0" style="BORDER: 1px solid #B1B1B1; border-collapse:collapse" width="100%">
           <tr>
                               <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader Download</b></td>
-            <td align="center" class="textGray">Secure solutions for all media, documents and web pages.</td>
+                              <td align="center" class="textGray">The most secure solutions for 
+                                media, documents and web pages.</td>
           </tr>
         </table>
       </td>
@@ -103,8 +91,8 @@
                 A webmaster can nominate to allow or disallow access according to 
 				OS, platform, web browser and version. <br><br>
                     <b>Windows</b><br><br>
-                                      Browsers supported are ASPS/2, IE8+, Firefox 
-                                      5+, Chrome, Opera 9+ and Safari 5+.<br>
+                                      Browsers supported are <a href="download_asps.php">ArtisBrowser</a> 
+                                      and others that still support NPAPI plugins.<br>
                                       <br>
                     <b>Mac OS </b><br><br>
                     Mac web browsers are not supported.<br><br>
@@ -120,11 +108,8 @@
                                         <td width="200" dir="ltr"><b>
 										Related Links</b><br>
                                           <br>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe PDF</a><br>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
-                                          <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp">
-										Online Demos</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection.asp">CopySafe 
+                                      PDF</a><br>
                                           <br>
                                           The CopySafe PDF Reader and web 
 										browser plugin are a free download to 
@@ -165,7 +150,7 @@
       <td align="center"><table border="0" cellpadding="10" cellspacing="0" width="100%">
   <tr>
     <td width="100%" align="center">
-              <div class="smText">Copyright &#169; 1998-2015 ArtistScope. All 
+              <div class="smText">Copyright &#169; 1998-2018 ArtistScope. All 
                 Rights Reserved.</div>
             </td>
   </tr>

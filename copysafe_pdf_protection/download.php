@@ -74,20 +74,7 @@ var newmessage = "";
       <td width="100%" bgcolor="#B1B1B1" dir="ltr" colspan="3">
       <img alt="" border="0" src="images/clr1x10.gif" width="10" height="1"></td>
     </tr>
-    <tr>
-      <td nowrap height="25" width="1" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-            <td width="100%" nowrap height="25" background="images/menu_bg.gif" align="center"> 
-              <a href="http://www.artistscope.com/default.asp">Home</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/company.asp">Company</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/solutions.asp">Solutions</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp">
-				Demonstrations</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/news.asp">News</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/registrations.asp">Purchase</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/sitemap.asp">Site Map</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/contact.asp">Contact</a>&nbsp;&nbsp;</td>
-      <td width="1" nowrap height="25" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-    </tr>
+
   </table></td>
     </tr>
     <tr>
@@ -111,7 +98,8 @@ var newmessage = "";
       <table border="0" cellpadding="10" cellspacing="0" style="BORDER: 1px solid #B1B1B1;; border-collapse:collapse" width="100%">
           <tr>
             <td nowrap class="lgText" align="left"><b>CopySafe PDF Reader &amp; Plugin Download</b></td>
-            <td align="center" class="textGray">Secure solutions for media, documents and web pages.</td>
+                              <td align="center" class="textGray">The most secure solutions for 
+                                media, documents and web pages.</td>
           </tr>
         </table>
       </td>
@@ -159,14 +147,14 @@ var newmessage = "";
      <table class="text" border="0" cellpadding="10" cellspacing="0" width="100%" >
        <tr> 
       <td align="center"><br>
-                                                If you have already installed 
-                                                this software and keep returning 
-                                                here, you may be using a web browser 
-                                                that no longer supports proper 
-                                                browser plugins. For no-nonsense 
-                                                plugin support we recommend that 
-                                                you download and install the <a href="download_asps.php"><u>ASPS 
-                                              Web Browser</u></a>. </td>
+                                              If you have already installed this 
+                                              software and keep returning here, 
+                                              you may be using a web browser that 
+                                              no longer supports real browser 
+                                              plugins. For no-nonsense plugin 
+                                              support we recommend that you download 
+                                              and install the <a href="download_asps.php"><u>ArtisBrowser</u></a>. 
+                                            </td>
     </tr>
     </table>
                                           
@@ -182,12 +170,8 @@ var newmessage = "";
                                         
                                     <td width="200" dir="ltr"><b> Related Links</b><br>
                                       <br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe 
-                                      PDF</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp"> 
-                                      Online Demos</a><br>
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection.asp">CopySafe 
+                                      PDF</a> <br>
                                       <br>
                                       The CopySafe PDF Reader and web browser 
                                       plugin are a free download to everyone. 
@@ -224,7 +208,7 @@ var newmessage = "";
       <td align="center"><table border="0" cellpadding="10" cellspacing="0" width="100%">
   <tr>
     <td width="100%" align="center">
-              <div class="smText">Copyright &#169; 1998-2015 ArtistScope. All 
+              <div class="smText">Copyright &#169; 1998-2018 ArtistScope. All 
                 Rights Reserved.</div>
             </td>
   </tr>

@@ -90,19 +90,7 @@ function getParameterByName(name) {
       <td width="100%" bgcolor="#B1B1B1" dir="ltr" colspan="3">
       <img alt="" border="0" src="images/clr1x10.gif" width="10" height="1"></td>
     </tr>
-    <tr>
-      <td nowrap height="25" width="1" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-            <td class="text" width="100%" nowrap height="25" background="images/menu_bg.gif" align="center"> 
-              <a href="http://www.artistscope.com/default.asp">Home</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/company.asp">Company</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/solutions.asp">Solutions</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/demonstrations.asp">Demonstrations</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/news.asp">News</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/registrations.asp">Purchase</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/sitemap.asp">Site Map</a>&nbsp;&nbsp; 
-              <a href="http://www.artistscope.com/contact.asp">Contact</a>&nbsp;&nbsp;</td>
-      <td width="1" nowrap height="25" bgcolor="#B1B1B1"><img alt="" border="0" src="images/clr1x10.gif" width="1" height="1"></td>
-    </tr>
+
   </table></td>
     </tr>
     <tr>
@@ -127,8 +115,8 @@ function getParameterByName(name) {
           <tr>
                               <td nowrap class="lgText" align="left"><b>CopySafe 
                                 PDF Reader Download</b></td>
-                              <td align="center" class="textGray">Secure solutions for media, documents 
-                                and web pages.</td>
+                              <td align="center" class="textGray">The most secure 
+                                solutions for media, documents and web pages.</td>
           </tr>
         </table>
       </td>
@@ -143,13 +131,13 @@ function getParameterByName(name) {
             <td valign="top" width="628">
             <table border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
               <tr>
-                <td class="text" width="628" align="left"><b><font size="3">ASPS Web Browser</font></b><br><br>
+                                    <td class="text" width="628" align="left"><b><font size="3">ArtisBrowser</font></b><br>
+                                      <br>
                 <div class="text" dir="ltr">
 
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                           
-                                        <div align="center"> <b>Download the ASPS 
-                                          Web Browser</b><br>
+                                        <div align="center"> <b>Download the ArtisBrowser</b><br>
                                           <br>
                                           <div align="center"> 
       <script type="text/javascript">
@@ -178,10 +166,12 @@ function getParameterByName(name) {
                                               </tr>
                                             </table>
                                             <br>
+                                            <i>*includes all CopySafe plugins.</i><br>
+                                            <br>
                                             <table width="95%" border="0" cellspacing="0" cellpadding="0">
                                               <tr> 
                                                 <td class="text" align="left" style="text-align: justify"> 
-                                                  The ASPS Web Browser is a standalone 
+                                                  The ArtisBrowser is a standalone 
                                                   application independent of other 
                                                   readers and web browsers that 
                                                   has been specially designed 
@@ -190,9 +180,9 @@ function getParameterByName(name) {
                                                   limitations as and when required. 
                                                   It is not designed to be a <i>popular</i> 
                                                   web browser and the user agrees 
-                                                  that in using the ASPS Web Browser 
+                                                  that in using the ArtisBrowser 
                                                   that they are in full agreement 
-                                                  with all <a target="_blank" href="ASPSbrowser_license.pdf">terms 
+                                                  with its <a target="_blank" href="ASPSbrowser_license.pdf">terms 
                                                   of use</a>.</td>
                                               </tr>
                                             </table>
@@ -210,12 +200,8 @@ function getParameterByName(name) {
                                     <td width="200" class="text" dir="ltr"><b>Related 
                                       Links</b><br>
                                       <br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_download.asp">CopySafe 
+                                      <a href="http://www.artistscope.com/copysafe_pdf_protection.asp">CopySafe 
                                       PDF</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_changes.asp">Changes</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_faq.asp">FAQs</a><br>
-                                      <a href="http://www.artistscope.com/copysafe_pdf_protection_demonstrations.asp"> 
-                                      Online Demos</a><br>
                                       <br>
                                       The CopySafe PDF Reader and web browser 
                                       plugin are a free download to everyone.<br>
@@ -252,7 +238,7 @@ function getParameterByName(name) {
       <td align="center"><table border="0" cellpadding="10" cellspacing="0" width="100%">
   <tr>
     <td width="100%" align="center">
-              <div class="smText">Copyright &#169; 1998-2015 ArtistScope. All 
+              <div class="smText">Copyright &#169; 1998-2018 ArtistScope. All 
                 Rights Reserved.</div>
             </td>
   </tr>
