@@ -1,0 +1,18 @@
+copysafe_pdf_protection.admin_config_system:
+  title: 'CopySafe PDF Settings'
+  route_name: copysafe_pdf_protection.admin_config_system
+  parent: system.admin_config
+  description: 'Configure basic Copysafe PDF settings.'
+  weight: 10
+copysafe_pdf_protection.copysafe_pdf:
+  title: 'CopySafe PDF'
+  parent: copysafe_pdf_protection.admin_config_system
+  description: 'Copy protect PDF on web pages. Safe from all copy and save including Print Screen and screen capture.'
+  route_name: copysafe_pdf_protection.copysafe_pdf
+  weight: -10
+copysafe_pdf_protection.copysafe_pdf_settings:
+  title: 'CopySafe PDF Settings'
+  parent: copysafe_pdf_protection.admin_config_system
+  description: 'Manage CopySafe PDF Settings.'
+  route_name: copysafe_pdf_protection.copysafe_pdf_settings
+  weight: -9

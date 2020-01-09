@@ -1,0 +1,8 @@
+copysafe_pdf_protection.copysafe_pdf:
+  title: CopySafe PDF
+  route_name: copysafe_pdf_protection.copysafe_pdf
+  base_route: copysafe_pdf_protection.admin_config_system
+copysafe_pdf_protection.copysafe_pdf_settings:
+  title: CopySafe PDF Settings
+  route_name: copysafe_pdf_protection.copysafe_pdf_settings
+  base_route: copysafe_pdf_protection.admin_config_system

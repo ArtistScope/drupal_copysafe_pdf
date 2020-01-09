@@ -1,0 +1,52 @@
+# Schema for the configuration files of the copysafe_pdf_protection module.
+
+copysafe_pdf_protection.settings:
+  type: config_object
+  label: 'Copysafe PDF Settings'
+  mapping:
+    uploadfolder:
+      type: string
+      label: 'Upload Folder'
+    size:
+      type: string
+      label: 'Max Upload Size'
+    mode:
+      type: string
+      label: 'Mode'
+    language:
+      type: string
+      label: 'Language'
+    pagecolor:
+      type: string
+      label: 'Page Color'
+    browser:
+      type: sequence
+      label: 'Browser'
+copysafe_pdf_protection.class_settings:
+  type: config_object
+  label: 'Copysafe PDF Class Settings'
+  mapping:
+    filename:
+      type: string
+      label: 'File name'
+    width:
+      type: string
+      label: 'Viewer Width'
+    height:
+      type: string
+      label: 'Viewer Height'
+    prints_allowed:
+      type: string
+      label: 'Prints Allowed'
+    print_anywhere:
+      type: string
+      label: 'Print Anywhere'
+    allow_capture:
+      type: string
+      label: 'Allow Capture'
+    allow_remote:
+      type: string
+      label: 'Allow Remote'
+    background:
+      type: string
+      label: 'Background'

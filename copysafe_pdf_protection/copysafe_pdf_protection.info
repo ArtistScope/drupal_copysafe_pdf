@@ -1,6 +1,0 @@
-name = "Copysafe PDF Protection"
-description = "CopySafe PDF"
-package = "CopySafe PDF"
-core = 7.x
-
-dependencies[] = ctools

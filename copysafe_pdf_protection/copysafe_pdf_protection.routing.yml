@@ -1,0 +1,49 @@
+copysafe_pdf_protection.admin_config_system:
+  path: '/admin/config/copysafe-pdf'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'CopySafe PDF Settings'
+  requirements:
+    _permission: 'access administration pages'
+
+copysafe_pdf_protection.copysafe_pdf:
+  path: '/admin/config/copysafe-pdf/copysafe_pdf_protection'
+  defaults:
+    _form: 'Drupal\copysafe_pdf_protection\Form\CopySafePdfConfig'
+    _title: 'CopySafe PDF'
+  requirements:
+    _permission: 'administer site configuration'
+
+copysafe_pdf_protection.copysafe_pdf_settings:
+  path: '/admin/config/copysafe-pdf/copysafe_pdf_settings'
+  defaults:
+    _form: 'Drupal\copysafe_pdf_protection\Form\CopySafePdfSettings'
+    _title: 'CopySafe PDF Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+copysafe_pdf_protection.copysafe_pdf_file_delete:
+  path: 'admin/config/copysafe-pdf/file_delete/{fid}'
+  defaults:
+    _form: 'Drupal\copysafe_pdf_protection\Form\CopySafePdfFileDelete'
+    _title: 'CopySafe PDF File Delete'
+  requirements:
+    _permission: 'administer site configuration'
+
+copysafe_pdf_protection.copysafe_pdf_class:
+  path: '/copysafe_pdf_protection/form/{fid}'
+  defaults:
+    _form: 'Drupal\copysafe_pdf_protection\Form\CopySafePdfClass'
+    _title: 'AJAX modal dialog'
+  requirements:
+    _permission: 'administer site configuration'
+
+copysafe_pdf_protection.open_embed_options_form:
+  path: '/copysafe_pdf_protection/embed_options/{fid}'
+  defaults:
+    _title: 'Embed Option Form'
+    _controller: '\Drupal\copysafe_pdf_protection\Controller\CopySafePdfController::openEmbedOptionsModalForm'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

@@ -1,0 +1,5 @@
+name: Copysafe PDF Protection
+type: module
+description: 'CopySafe PDF'
+package: CopySafe PDF
+core: 8.x
